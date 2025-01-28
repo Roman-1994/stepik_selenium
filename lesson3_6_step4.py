@@ -49,7 +49,7 @@ class TestAliens:
         try:
             # Если кнопка "Решить снова" есть
             browser.implicitly_wait(10)
-            button_again = browser.find_element(By.CSS_SELECTOR, "button.again-btn")
+            button_again = browser.find_element(By.CSS_SELECTOR, ".again-btn.white")
             button_again.click()
             #Нажать кнопку ок если есть "Решить снова"
             
