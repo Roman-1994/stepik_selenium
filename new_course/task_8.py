@@ -17,14 +17,16 @@ def test_button_start():
     link_8_2_6 = 'https://parsinger.ru/selenium/8/8.2.2/index.html'
     link_8_3_5 = 'https://parsinger.ru/selenium/8/8.3.1/index.html'
     link_8_4_4 = 'https://parsinger.ru/selenium/8/8.4.1/'
-    
+    link_8_4_5 = 'https://parsinger.ru/selenium/8/8.4.2/index.html'
+    link_8_4_6 = 'https://parsinger.ru/selenium/8/8.4.3/index.html'
     
 
     try:
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless=new')
-        browser = webdriver.Chrome(options=options)
-        browser.get(link_8_4_4)
+        #options = webdriver.ChromeOptions()
+        #options.add_argument('--headless=new')
+        browser = webdriver.Chrome()#options=options)
+        browser.maximize_window()
+        browser.get(link_8_4_6)
         browser.implicitly_wait(3)
         
         #task_8_1_3
@@ -77,12 +79,34 @@ def test_button_start():
         # print(browser.find_element(By.CLASS_NAME, 'secret-key').text)
         
         #task_8_4_4
-        frame = browser.find_element(By.TAG_NAME, 'iframe')
-        browser.switch_to.frame(frame)
-        text = browser.page_source
-        text = text.split('*')[1::2]
-        print(''.join(text))
+        # frame = browser.find_element(By.TAG_NAME, 'iframe')
+        # browser.switch_to.frame(frame)
+        # text = browser.page_source
+        # text = text.split('*')[1::2]
+        # print(''.join(text))
         
+        #task_8_4_5
+        # action = ActionChains(browser)
+        # for i in range(1, 5):
+        #     iframe = browser.find_element(By.ID, f'frame{i}')
+        #     browser.switch_to.frame(iframe)
+        #     browser.page_source
+        #     if i < 4:
+        #         browser.find_element(By.CLASS_NAME, 'unlock-button').click()
+        #         browser.switch_to.default_content()
+        #         action.key_down(Keys.END).key_up(Keys.END).perform()
+        #     else:
+        #         print(browser.find_element(By.TAG_NAME, 'h2').text)
+        
+        #task_8_4_6
+        for i in range(1, 5):
+            iframe = browser.find_element(By.TAG_NAME, 'iframe')
+            browser.switch_to.frame(iframe)
+            browser.page_source
+            browser.find_element(By.CLASS_NAME, 'button').click()
+            if i == 4:
+                print(browser.find_element(By.CLASS_NAME, 'password-container').text)
+                        
         
     finally:
         browser.quit()
