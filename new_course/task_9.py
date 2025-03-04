@@ -21,6 +21,9 @@ def test_button_start():
     link_9_4_6 = 'http://parsinger.ru/selenium/9/9.4.1/3VT6JyXnI7EQqG0632xSAQyD4Z.html'
     link_9_4_8 = 'https://parsinger.ru/selenium/9/9.4.2/index.html'
     link_9_5_3 = 'https://parsinger.ru/selenium/9/9.5.1/index.html'
+    link_9_5_5 = 'https://parsinger.ru/selenium/9/9.5.2/index.html'
+    link_9_6_3 = 'https://parsinger.ru/selenium/9/9.6.1/index.html'
+    link_9_5_9 = 'https://parsinger.ru/selenium/9/9.5.3/index.html'
     
 
     try:
@@ -29,7 +32,7 @@ def test_button_start():
         #options.add_argument('--headless=new')
         browser = webdriver.Chrome()#options=options)
         browser.maximize_window()
-        browser.get(link_9_5_3)
+        browser.get(link_9_5_9)
         browser.implicitly_wait(10)
         
         #task_9_1_6
@@ -93,13 +96,36 @@ def test_button_start():
         # browser.find_element(By.ID, 'checkButton').click()
         # print(browser.find_element(By.ID, 'result').text)
         
-        #task_9_5_3
+        #task_9_5_3 TR07NGM19XTR07NGM19X
         #if WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_element_located((By.ID, 'order-number'))):
-        if WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.presence_of_element_located((By.ID, 'order-number'))):
-            print(browser.find_element(By.ID, 'order-number').text)
+        # if WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.presence_of_element_located((By.ID, 'order-number'))):
+        #     print(browser.find_element(By.ID, 'order-number').text)
         # if WebDriverWait(browser, poll_frequency=0.5,timeout=1000).until(EC.visibility_of_element_located((By.ID, 'loading-text'))):
         #     print(browser.find_element(By.ID, 'loading-text').text)
         # time.sleep(200)
+        
+        #task_9_5_5
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_element_located((By.ID, 'ghost-button')), 'ERROR_1').click()
+        # print(browser.find_element(By.ID, 'password-display').text)
+        
+        #task_9_6_3
+        # while True:
+        #     if WebDriverWait(browser, poll_frequency=0.5,timeout=60).until(EC.visibility_of_element_located((By.ID, 'code-container')), 'ERROR_1'):
+        #         print(browser.find_element(By.ID, 'secret-code').text)
+        #         break
+        
+        #task_9_5_9
+        browser.find_element(By.ID, 'showProducts').click()
+        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, 'div.product')), 'ERROR_1')
+        all_price = 0
+        elems = browser.find_elements(By.CSS_SELECTOR, 'div.product')
+        for elem in elems:
+            all_price += int(str(elem.find_element(By.CSS_SELECTOR, 'div.price').text)[1:].replace(',', ''))
+        time.sleep(3)
+        browser.find_element(By.ID, 'sumInput').send_keys(all_price)
+        browser.find_element(By.ID, 'checkSum').click()
+        time.sleep(3)
+        print(browser.find_element(By.ID, 'secretMessage').text)
         
         
     finally:

@@ -1,5 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException, UnexpectedAlertPresentException, NoAlertPresentException
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 import os
 import time
 
@@ -12,6 +17,7 @@ def test_button_start():
     link_8_6_1 = 'https://demoqa.com/text-box'
     link_8_6_2 = 'http://the-internet.herokuapp.com/status_codes'
     link_10_5_1 = 'https://demoqa.com/upload-download'
+    link_11_6 = 'https://omayo.blogspot.com/'
     
 
     try:
@@ -22,10 +28,13 @@ def test_button_start():
         # options.add_experimental_option("prefs", preferences)
         #options.add_argument('--headless=new')
         #options.add_argument('--ignore-certificate-errors')
+        #options.add_argument('--ignore-ssl-errors')
+        #options.add_argument("--disable-blink-features=AutomationControlled") # Отключение режима автоматизации, чтобы сайт не мог определить, что мы используем WebDriver для автоматизации тестирования
+        #options.add_argument("--user-agent=Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/21.0 Chrome/110.0.5481.154 Mobile Safari/537.36") # Изменение браузера на мобильный
         browser = webdriver.Chrome()#options=options)
         browser.maximize_window()
-        browser.get(link_10_5_1)
-        browser.implicitly_wait(10)
+        browser.get(link_11_6)
+        #browser.implicitly_wait(10)
         
         #task_4_6
         # title_1 = browser.title
@@ -75,8 +84,18 @@ def test_button_start():
         # elem = browser.find_element(By.ID, 'uploadFile')
         # elem.send_keys(os.path.join(os.getcwd(), "1.png"))
         
-        
-                        
+        #task_11_6_1
+        while True:
+            if WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_element_located((By.XPATH, '//h2[text()="DisplayForTimeAndDissapear"]')), message="ERROR_1"):
+                break
+            else:
+                browser.find_element(By.ID, 'sidebar-left-1').send_keys(Keys.END)
+                continue
+        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.text_to_be_present_in_element((By.ID, 'deletesuccess'), text_= ''), message="ERROR_1")
+        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.text_to_be_present_in_element((By.ID, 'delayedText'), text_= 'This text is displayed after 10 seconds of wait.'), message="ERROR_2")
+        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.element_to_be_clickable((By.ID, 'timerButton')), message="ERROR_3")
+        browser.find_element(By.XPATH, '//button[text()="Try it"]').click()
+        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until_not(EC.element_to_be_clickable((By.ID, 'myBtn')), message="ERROR_4")
         
     finally:
         browser.quit()
