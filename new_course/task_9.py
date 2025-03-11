@@ -24,6 +24,12 @@ def test_button_start():
     link_9_5_5 = 'https://parsinger.ru/selenium/9/9.5.2/index.html'
     link_9_6_3 = 'https://parsinger.ru/selenium/9/9.6.1/index.html'
     link_9_5_9 = 'https://parsinger.ru/selenium/9/9.5.3/index.html'
+    link_9_6_5 = 'https://parsinger.ru/selenium/9/9.6.2/index.html'
+    link_9_6_7 = 'https://parsinger.ru/selenium/9/9.6.3/index.html'
+    link_9_6_8 = 'https://parsinger.ru/selenium/9/9.6.4/index.html'
+    link_9_7_3 = 'https://parsinger.ru/selenium/9/9.7.1/index.html'
+    link_9_7_5 = 'https://parsinger.ru/selenium/9/9.7.2/index.html'
+    link_9_7_7 = 'https://parsinger.ru/selenium/9/9.7.3/index.html'
     
 
     try:
@@ -32,7 +38,7 @@ def test_button_start():
         #options.add_argument('--headless=new')
         browser = webdriver.Chrome()#options=options)
         browser.maximize_window()
-        browser.get(link_9_5_9)
+        browser.get(link_9_7_7)
         browser.implicitly_wait(10)
         
         #task_9_1_6
@@ -115,18 +121,70 @@ def test_button_start():
         #         break
         
         #task_9_5_9
-        browser.find_element(By.ID, 'showProducts').click()
-        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, 'div.product')), 'ERROR_1')
-        all_price = 0
-        elems = browser.find_elements(By.CSS_SELECTOR, 'div.product')
-        for elem in elems:
-            all_price += int(str(elem.find_element(By.CSS_SELECTOR, 'div.price').text)[1:].replace(',', ''))
-        time.sleep(3)
-        browser.find_element(By.ID, 'sumInput').send_keys(all_price)
-        browser.find_element(By.ID, 'checkSum').click()
-        time.sleep(3)
-        print(browser.find_element(By.ID, 'secretMessage').text)
+        # browser.find_element(By.ID, 'showProducts').click()
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, 'div.product')), 'ERROR_1')
+        # all_price = 0
+        # elems = browser.find_elements(By.CSS_SELECTOR, 'div.product')
+        # for elem in elems:
+        #     all_price += int(str(elem.find_element(By.CSS_SELECTOR, 'div.price').text)[1:].replace(',', ''))
+        # time.sleep(3)
+        # browser.find_element(By.ID, 'sumInput').send_keys(all_price)
+        # browser.find_element(By.ID, 'checkSum').click()
+        # time.sleep(3)
+        # print(browser.find_element(By.ID, 'secretMessage').text)
         
+        #task_9_6_5
+        # browser.find_element(By.ID, 'ask-jaskier').click()
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=20).until(EC.text_to_be_present_in_element_value((By.ID, 'recipe_field'), 'Селениумий'), 'ERROR_1')
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=30).until(EC.visibility_of_all_elements_located((By.ID, 'result-container')), 'ERROR_2')
+        # print(browser.find_element(By.ID, 'password').text)
+        
+        #task_9_6_7
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=20).until(EC.text_to_be_present_in_element_attribute((By.ID, 'main-image'), 'src', 'success'), 'ERROR_1')
+        # browser.find_element(By.ID, 'main-image').click()
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'span[id=password]')), 'ERROR_2')
+        # print(browser.find_element(By.CSS_SELECTOR, 'span[id=password]').text)
+        
+        #task_9_6_8
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=20).until(EC.element_attribute_to_include((By.ID, 'booking-number'), 'confirmed'), 'ERROR_1')
+        # text = browser.find_element(By.ID, 'booking-number').text
+        # browser.find_element(By.ID, 'booking-input').send_keys(text)
+        # browser.find_element(By.ID, 'check-button').click()
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_element_located((By.CLASS_NAME, 'password-value')), 'ERROR_2')
+        # print(browser.find_element(By.CLASS_NAME, 'password-value').text)
+        #time.sleep(60)
+        
+        #task_9_7_3
+        # browser.find_element(By.ID, 'address').send_keys('asdfsadf')
+        # Select(browser.find_element(By.ID, 'payment')).select_by_value('card')
+        # time.sleep(2)
+        # browser.find_element(By.ID, 'submit-order').click()
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.invisibility_of_element_located((By.CLASS_NAME, 'spinner')), 'ERROR_1')
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.element_to_be_clickable((By.ID, 'confirm-address')), 'ERROR_2')
+        # browser.find_element(By.ID, 'confirm-address').click()
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.invisibility_of_element_located((By.CLASS_NAME, 'modal')), 'ERROR_3')
+        # browser.find_element(By.ID, 'get-code').click()
+        # time.sleep(10)
+        # print(browser.find_element(By.ID, 'result').text)
+        
+        #task_9_7_5
+        # browser.find_element(By.CLASS_NAME, 'search-box').send_keys('testing')
+        # browser.find_element(By.ID, 'search-button').click()
+        # WebDriverWait(browser, poll_frequency=0.5, timeout=10).until(EC.visibility_of_element_located((By.ID, 'old-result')), 'ERROR_1')
+        # old_elem = browser.find_element(By.ID, 'old-result')
+        # WebDriverWait(browser, poll_frequency=0.5, timeout=10).until(EC.invisibility_of_element_located((By.ID, 'old-result')), 'ERROR_2')
+        # WebDriverWait(browser, poll_frequency=0.5, timeout=10).until(EC.visibility_of_element_located((By.ID, 'new-result')), 'ERROR_3')
+        # browser.find_element(By.ID, 'secret-button').click()
+        # time.sleep(10)
+        # print(browser.find_element(By.ID, 'result').text)
+        
+        #task_9_7_7
+        browser.find_element(By.ID, 'summonBtn').click()
+        WebDriverWait(browser, poll_frequency=0.01, timeout=10).until(EC.number_of_windows_to_be(5), 'ERROR_1')
+        browser.find_element(By.ID, 'passwordBtn').click()
+        alert = WebDriverWait(browser, poll_frequency=0.5, timeout=10).until(EC.alert_is_present(), 'ERROR_2')
+        print(alert.text)
+    
         
     finally:
         browser.quit()

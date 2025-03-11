@@ -5,6 +5,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException, UnexpectedAlertPresentException, NoAlertPresentException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.select import Select
 import os
 import time
 
@@ -18,7 +19,11 @@ def test_button_start():
     link_8_6_2 = 'http://the-internet.herokuapp.com/status_codes'
     link_10_5_1 = 'https://demoqa.com/upload-download'
     link_11_6 = 'https://omayo.blogspot.com/'
+    link_14_8 = 'https://demoqa.com/alerts'
+    link_15_7 = 'https://demoqa.com/selectable'
     
+    #PROXY = "37.19.220.129:8443"
+    #PROXY = "username:password@37.19.220.129:8443"
 
     try:
         options = webdriver.ChromeOptions()
@@ -26,6 +31,7 @@ def test_button_start():
         #         "download.default_directory" : os.path.join(os.getcwd(), "downloads")
         #         }
         # options.add_experimental_option("prefs", preferences)
+        #options.add_argument(f"--proxy-server={PROXY}")
         #options.add_argument('--headless=new')
         #options.add_argument('--ignore-certificate-errors')
         #options.add_argument('--ignore-ssl-errors')
@@ -33,7 +39,7 @@ def test_button_start():
         #options.add_argument("--user-agent=Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/21.0 Chrome/110.0.5481.154 Mobile Safari/537.36") # Изменение браузера на мобильный
         browser = webdriver.Chrome()#options=options)
         browser.maximize_window()
-        browser.get(link_11_6)
+        browser.get(link_8_6_2)
         #browser.implicitly_wait(10)
         
         #task_4_6
@@ -85,17 +91,55 @@ def test_button_start():
         # elem.send_keys(os.path.join(os.getcwd(), "1.png"))
         
         #task_11_6_1
-        while True:
-            if WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_element_located((By.XPATH, '//h2[text()="DisplayForTimeAndDissapear"]')), message="ERROR_1"):
-                break
-            else:
-                browser.find_element(By.ID, 'sidebar-left-1').send_keys(Keys.END)
-                continue
-        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.text_to_be_present_in_element((By.ID, 'deletesuccess'), text_= ''), message="ERROR_1")
-        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.text_to_be_present_in_element((By.ID, 'delayedText'), text_= 'This text is displayed after 10 seconds of wait.'), message="ERROR_2")
-        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.element_to_be_clickable((By.ID, 'timerButton')), message="ERROR_3")
-        browser.find_element(By.XPATH, '//button[text()="Try it"]').click()
-        WebDriverWait(browser, poll_frequency=0.5,timeout=10).until_not(EC.element_to_be_clickable((By.ID, 'myBtn')), message="ERROR_4")
+        # while True:
+        #     if WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.visibility_of_element_located((By.XPATH, '//h2[text()="DisplayForTimeAndDissapear"]')), message="ERROR_1"):
+        #         break
+        #     else:
+        #         browser.find_element(By.ID, 'sidebar-left-1').send_keys(Keys.END)
+        #         continue
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.text_to_be_present_in_element((By.ID, 'deletesuccess'), text_= ''), message="ERROR_1")
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.text_to_be_present_in_element((By.ID, 'delayedText'), text_= 'This text is displayed after 10 seconds of wait.'), message="ERROR_2")
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until(EC.element_to_be_clickable((By.ID, 'timerButton')), message="ERROR_3")
+        # browser.find_element(By.XPATH, '//button[text()="Try it"]').click()
+        # WebDriverWait(browser, poll_frequency=0.5,timeout=10).until_not(EC.element_to_be_clickable((By.ID, 'myBtn')), message="ERROR_4")
+        
+        #task_14_8
+        # browser.add_cookie({'name': 'username', 'value': 'user123'})
+        # browser.refresh()
+        # cookie = browser.get_cookie('username')
+        # print(cookie['value'])
+        # browser.delete_cookie('username')
+        # browser.refresh()
+        # cookies = browser.get_cookies()
+        # for i in cookies:
+        #     assert i['name'] != 'username', "Cookue not delete"
+        
+        #task_15_7 
+        # browser.find_element(By.ID, 'demo-tab-grid').click()
+        # for i in range(1, 4):
+        #     elem = browser.find_element(By.XPATH, f"//div[@id='gridContainer']/div[@id='row{i}']/li[{i}]")
+        #     elem.click()
+        #     assert 'active' in elem.get_attribute('class'), 'Элемент не выбран'
+        #     time.sleep(2)
+        #     elem.click()
+        #     assert 'active' not in elem.get_attribute('class'), 'Элемент все еще выбран'
+        
+        #task_18_8
+        time.sleep(1)
+        browser.switch_to.new_window('tab')
+        browser.get(link_8_6_2)
+        time.sleep(1)
+        browser.switch_to.new_window('tab')
+        browser.get(link_8_6_2)
+        time.sleep(1)
+        win = browser.window_handles
+        browser.switch_to.window(win[0])
+        print(browser.title)
+        browser.switch_to.window(win[1])
+        print(browser.title)
+        browser.switch_to.window(win[2])
+        print(browser.title)
+        
         
     finally:
         browser.quit()

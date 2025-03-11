@@ -79,7 +79,7 @@ def test_button_start():
             if WebDriverWait(browser, 20).until(EC.element_to_be_selected(elem_input)):
                 elem.find_element(By.TAG_NAME, 'button').click()
         print(browser.find_element(By.ID, 'result').text)
-        
+                
     
     finally:
         browser.quit()
