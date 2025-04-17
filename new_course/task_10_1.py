@@ -122,6 +122,7 @@ def test_button_start():
         #     time.sleep(1)
         # print(browser.find_element(By.ID, 'message').text)
         
+        print('hello')
     
     finally:
         browser.quit()
